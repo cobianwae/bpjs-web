@@ -1,43 +1,84 @@
-<form role="form" name="complaintResponseForm">
-	<div class="box-body">					
-		<div class="row">
-			<div class="col-sm-6">
-				<div class="form-group">
-					<label>Nomor BPJS</label>
-					<input type="text" class="form-control" placeholder="No BPJS" ng-model="model.user.bpjs_number" ng-required="true" />
-				</div>					
-				<div class="form-group">
-					<label>Nomor KTP</label>
-					<input type="text" class="form-control" placeholder="No KTP" ng-model="model.user.identity_number" ng-required="true" />
+<section class="content-header">
+	<h1>
+		Keluhan
+		<small>Tanggapi</small>
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+		<li><a ui-sref="user">User</a></li>
+		<li class="active">Tanggapi Keluhan</li>
+	</ol> 
+</section>
+
+<section class="content">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="box">
+				<div class="box-header with-border">
+					<h3 class="box-title">Tanggapi Keluhan</h3>
+					<div class="box-tools">						
+					</div>
 				</div>
-				<div class="form-group">
-					<label>Fullname</label>
-					<input type="text" class="form-control" placeholder="Fullname" ng-model="model.user.fullname" ng-required="true" />
-				</div>
-			</div>
-			<div class="col-sm-6">				
-				<div class="form-group">
-					<label>Pilihan Waktu</label>
-					<input type="text" class="form-control" placeholder="Isi nomor hp" ng-model="model.date" ng-required="true" />
-				</div>
-				<div class="form-group">
-					<label>Keluhan</label>
-					<textarea class="form-control" placeholder="Isi nomor hp" ng-model="model.disease" ng-required="true" ></textarea>
-				</div>
-			</div>
-			<div class="col-sm-12">
+				<div class="box-body">
+					<form role="form" name="complaintResponseForm">
+						<div class="box-body">					
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>Nomor BPJS</label>
+										<input readonly="ture" type="text" class="form-control" placeholder="No BPJS" ng-model="complaint.user.bpjs_number" ng-required="true" />
+									</div>					
+									<div class="form-group">
+										<label>Nomor KTP</label>
+										<input readonly="ture" type="text" class="form-control" placeholder="No KTP" ng-model="complaint.user.identity_number" ng-required="true" />
+									</div>
+									<div class="form-group">
+										<label>Fullname</label>
+										<input readonly="ture" type="text" class="form-control" placeholder="Fullname" ng-model="complaint.user.fullname" ng-required="true" />
+									</div>
+								</div>
+								<div class="col-sm-6">				
+									<div class="form-group">
+										<label>Pilihan Waktu</label>
+										<input readonly="ture" type="text" class="form-control" placeholder="Isi nomor hp" value="[[complaint.date | date : 'dd-MM-yyyy']]" ng-required="true" />
+									</div>
+									<div class="form-group">
+										<label>Keluhan</label>
+										<textarea readonly="ture" rows="5" class="form-control" placeholder="Isi nomor hp" ng-model="complaint.disease" ng-required="true" ></textarea>
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<fieldset>
+										<legend>Rujukan</legend>
+										
+										<div class="form-group">
+											<label>Rumah Sakit</label>
+											<input readonly="ture" type="text" class="form-control" placeholder="Pilih Rumah Sakit Terdekat Melalu Peta Berikut" ng-model="complaint.hospital" ng-required="true" />
+										</div>
+										<ui-gmap-google-map center='map.center' zoom='map.zoom' options='options' >
+										<ui-gmap-markers click="chooseHospital" models="hospitalMarkers" idKey="'id'" coords="'self'" icon="'icon'"></ui-gmap-markers>
+									</ui-gmap-google-map>
+									<div class="form-group">
+										<label>Pelayanan</label>
+										<select ng-required="true" class="form-control" ng-options="item.id as item.name for item in hospitalServiceQueryResult.data track by item.id" ng-model="model.service_id">
+											<option value="">Pilih Pelayanan</option>
+										</select>
+									</div>
+								</fieldset>
+							</div>
+						</div>
+					</div>
+					<div class="box-footer">
+						<div class="form-group"> 
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary" ng-click="save()">Save changes</button>
+						</div> 
+					</div>	
+				</form>
 			</div>
 		</div>
 	</div>
-	<div class="box-footer">
-		<div class="form-group"> 
-			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			<button type="submit" class="btn btn-primary" ng-click="save()">Save changes</button>
-		</div> 
-	</div>	
-</form>
-
-<div ng-controller="ChangePasswordCtrl" class="changePassword" ng-include="'/templates/user/_changePassword.html'">
 </div>
+</section>
 
 

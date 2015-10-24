@@ -1,13 +1,26 @@
 var APIController = require('core/mvc').APIController;
 var Complaint = require('models/complaint');
+var Hospital = require('models/hospital');
 var QueryBuilder = require('core/query-builder');
+var HospitalQueryBuilder = require('lib/hospital/query-builder');
 
 var complaintController = new APIController();
 
 complaintController.get = function(req, res, next) {
 	Complaint.get(req.params.id)
 	.then(function(model){
-		res.send(model.toJSON());
+		var complaint = model.toJSON();
+		var userGeoLoc = complaint.location_reference == 'address' ? ['-6.902505', '107.618761'] : complaint.location_reference.split(',');
+		complaint.location_reference = userGeoLoc.join(',');
+		var hospitalQueryBuilder = new HospitalQueryBuilder({
+			centerLat : userGeoLoc[0],
+			centerLang : userGeoLoc[1]
+		});
+		Hospital.queryNearbyHospitals(hospitalQueryBuilder)
+		.then(function(collection){
+			complaint.nearbyHospitals = collection.toJSON(); 
+			res.send(complaint);			
+		})
 	});
 };
 complaintController.getList = function(req, res, next) {	
@@ -45,4 +58,3 @@ complaintController.delete = function(req, res, next) {
 
 
 module.exports = complaintController;
-					

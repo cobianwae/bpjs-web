@@ -21,6 +21,7 @@
     "ngImgCrop": "~0.3.2",
     "morrisjs": "~0.5.1",
     "ckeditor": "~4.5.3",
-    "angular-google-maps": "~2.2.1"
+    "angular-google-maps": "~2.2.1",
+    "angular-simple-logger": "~0.1.5"
   }
 }

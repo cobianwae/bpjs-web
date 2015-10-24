@@ -1,6 +1,13 @@
 'use strict';
 
-angular.module('Bpjs', ['validation.match','angular-loading-bar', 'ngStorage', 'ngSanitize','ui.bootstrap.pagination', 'ngResource', 'bpjs.config', 'bpjs.services', 'bpjs.directives', 'bpjs.controllers', 'ui.router'])
+angular.module('Bpjs', ['uiGmapgoogle-maps','validation.match','angular-loading-bar', 'ngStorage', 'ngSanitize','ui.bootstrap.pagination', 'ngResource', 'bpjs.config', 'bpjs.services', 'bpjs.directives', 'bpjs.controllers', 'ui.router'])
+.config(function(uiGmapGoogleMapApiProvider) {
+	uiGmapGoogleMapApiProvider.configure({
+        //    key: 'your api key',
+        v: '3.20', //defaults to latest 3.X anyhow
+        libraries: 'weather,geometry,visualization'
+    });
+})
 .config(['$httpProvider', function($httpProvider) {
 	$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 	$httpProvider.interceptors.push([
@@ -71,6 +78,11 @@ angular.module('Bpjs', ['validation.match','angular-loading-bar', 'ngStorage', '
 		url : '/complaint',
 		templateUrl : '/templates/complaint/list.html',
 		controller : 'ComplaintListCtrl'
+	})
+	.state('complaint-response',{
+		url : '/complaint/response/:id',
+		templateUrl : '/templates/complaint/response.html',
+		controller : 'ComplaintResponseCtrl'
 	})
 
 	$urlRouterProvider.otherwise('/');

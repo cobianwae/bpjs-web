@@ -2,15 +2,15 @@ var bookshelf = require('models').bookshelf;
 var Promise = require('core/bluebird');
 var authorization = require('core/authorization');
 
-var Complaint = bookshelf.Model.extend({
-	tableName : 'complaints',
+var UserQueue = bookshelf.Model.extend({
+	tableName : 'user_queues',
 	user : function(){
 		return this.belongsTo('User', 'user_id');
 	}
 },{
 	query : Promise.method(function (queryBuilder) {
 		var result = {};
-		var Complaint = this;
+		var UserQueue = this;
 		return this.collection()
 		.query(function(qb){
 			queryBuilder.build(qb);
@@ -19,7 +19,7 @@ var Complaint = bookshelf.Model.extend({
 		.then(function(collection){
 			result.data = collection.toJSON();
 			var raw = 'count(*) as total';
-			return Complaint.collection()
+			return UserQueue.collection()
 			.query(function(qb){
 				qb.select(bookshelf.knex.raw(raw));
 				queryBuilder.buildConditionsOnly(qb);
@@ -42,4 +42,4 @@ var Complaint = bookshelf.Model.extend({
 	})
 });
 
-module.exports = bookshelf.model('Complaint', Complaint);
+module.exports = bookshelf.model('UserQueue', UserQueue);

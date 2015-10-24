@@ -1,5 +1,6 @@
 var APIController = require('core/mvc').APIController;
-var Complaint = require('models/complaintResponse');
+var DailyQueue = require('models/daily-queue');
+var UserQueue = require('models/user-queue');
 var QueryBuilder = require('core/query-builder');
 
 var complaintResponseController = new APIController();

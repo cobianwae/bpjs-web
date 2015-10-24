@@ -40,7 +40,8 @@ var Schema = {
 		id : {type: 'increments', nullable: false, primary: true},
 		name : {type:'string', nullable:false},
 		address_id: {type: 'integer', nullable: false, unsigned:true, references:'addresses.id'},
-		location_coordinate : {type:'string', nullable:false},
+		lat : {type:'string', nullable:false},
+		lang : {type:'string', nullable:false}
 	},
 	services : {
 		id : {type: 'increments', nullable: false, primary: true},
