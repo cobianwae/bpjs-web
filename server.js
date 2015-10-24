@@ -13,12 +13,14 @@ var config = require('config');
 var env = process.env.NODE_ENV || 'development';
 var handlebarsHelpers = require('core/helpers/handlebars.js');
 var jwt = require('core/authentication/jwt');
+var cors = require('cors');
 
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({
 	extended: true,
 	limit: '50mb'
 }));
+app.use(cors());
 app.use(cookieParser());
 app.use(compress());
 

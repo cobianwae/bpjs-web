@@ -49,7 +49,8 @@ userController.post = function(req, res, next) {
 	})
 	.then(function(user){
 		user.address = address;
-		res.send({success:true, user:user});
+
+		res.send({success:true, user:user, address: address});
 	});	
 };
 // userController.put = function(req, res, next) {
