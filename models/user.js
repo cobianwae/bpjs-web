@@ -2,6 +2,7 @@ var bookshelf = require('models').bookshelf,
 Promise = require('core/bluebird'),
 bcrypt = require('bcrypt-nodejs');
 var Role = require('./role');
+var Address = require('./address');
 
 var User = bookshelf.Model.extend({
 	tableName : 'users',

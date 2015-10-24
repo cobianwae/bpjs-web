@@ -84,6 +84,11 @@ angular.module('Bpjs', ['uiGmapgoogle-maps','validation.match','angular-loading-
 		templateUrl : '/templates/complaint/response.html',
 		controller : 'ComplaintResponseCtrl'
 	})
+	.state('user-queue',{
+		url : '/userqueue',
+		templateUrl : '/templates/queue/list.html',
+		controller : 'UserQueueListCtrl'
+	});
 
 	$urlRouterProvider.otherwise('/');
 }]);

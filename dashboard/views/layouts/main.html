@@ -68,6 +68,7 @@
   <script src="/public/scripts/services/complaintResponseService.js"></script>
   <script src="/public/scripts/services/hospitalServiceService.js"></script>
   <script src="/public/scripts/services/hospitalService.js"></script>
+  <script src="/public/scripts/services/userQueueService.js"></script>
 
   <script src="/public/scripts/controllers/baseCtrl.js"></script>
   <script src="/public/scripts/controllers/user/listCtrl.js"></script>
@@ -75,6 +76,8 @@
   <script src="/public/scripts/controllers/user/updateCtrl.js"></script>
   <script src="/public/scripts/controllers/complaint/listCtrl.js"></script>
   <script src="/public/scripts/controllers/complaint/responseCtrl.js"></script>
+  <script src="/public/scripts/controllers/queue/listCtrl.js"></script>
+  <script src="/public/scripts/controllers/queue/processCtrl.js"></script>
 
   <script src="/public/scripts/directives/baseDirective.js"></script>
   <script src="/public/scripts/directives/typeahead.js"></script>
@@ -155,6 +158,11 @@
 <li>
   <a ui-sref="complaint">
    <i class="fa fa-bullhorn"></i> <span>Keluhan</span>
+ </a>
+</li>
+<li>
+  <a ui-sref="user-queue">
+   <i class="fa fa-bullhorn"></i> <span>Antrian</span>
  </a>
 </li>
 </ul>

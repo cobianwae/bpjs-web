@@ -3,10 +3,7 @@ var Promise = require('core/bluebird');
 var authorization = require('core/authorization');
 
 var DailyQueue = bookshelf.Model.extend({
-	tableName : 'daily_queues',
-	user : function(){
-		return this.belongsTo('User', 'user_id');
-	}
+	tableName : 'daily_queues'
 },{
 	query : Promise.method(function (queryBuilder) {
 		var result = {};
@@ -32,7 +29,7 @@ var DailyQueue = bookshelf.Model.extend({
 		});
 	}),
 	get : Promise.method(function (id) {
-		return new this({id:id}).fetch({withRelated:'user'});
+		return new this({id:id}).fetch();
 	}),
 	getByParams: Promise.method(function(params){
 		return new this(params).fetch();

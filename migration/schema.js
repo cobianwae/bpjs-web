@@ -18,6 +18,7 @@ var Schema = {
 		blood_type: {type:'string', nullable:true, maxlength:1},
 		sex : {type:'string', nullable:true},
 		address_id: {type: 'integer', nullable: true, unsigned:true, references:'addresses.id'},
+		hospital_id: {type: 'integer', nullable: true, unsigned:true, references:'addresses.id'},
 		is_active : {type: 'boolean', nullable:false, defaultTo:true},
 	},
 	addresses : {
@@ -35,6 +36,7 @@ var Schema = {
 		created_at : {type:'timestamp', nullable:false,  rawDefaultTo:'CURRENT_TIMESTAMP'},
 		user_id: {type: 'integer', nullable: false, unsigned:true, references:'users.id'},
 		location_reference :  {type:'string', nullable:false},
+		is_completed : {type:'boolean', nullable:false, defaultTo:false},
 	},
 	hospitals : {
 		id : {type: 'increments', nullable: false, primary: true},
@@ -65,6 +67,7 @@ var Schema = {
 		id : {type: 'increments', nullable: false, primary: true},
 		daily_queue_id: {type: 'integer', nullable: false, unsigned:true, references:'daily_queues.id'},
 		number : {type: 'integer', nullable: false},
+		user_id: {type: 'integer', nullable: false, unsigned:true, references:'users.id'},
 		completed_at : {type:'timestamp', nullable:false,  rawDefaultTo:'CURRENT_TIMESTAMP'}
 	}
 };

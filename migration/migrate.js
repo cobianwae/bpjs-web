@@ -87,7 +87,8 @@ knex.transaction(function (trx) {
 		var roles = [
 		{title : 'admin'},
 		{title : 'operator'},
-		{title : 'member'},];
+		{title : 'member'},
+		{title : 'operator-rs'},];
 		return knex('roles').insert(roles).transacting(trx)
 	})
 	.then(function(){
@@ -101,6 +102,7 @@ knex.transaction(function (trx) {
 		admin.role_id = roles[0].id;
 		return knex('users').insert(admin).transacting(trx);
 	})
+
 	.then(function(){
 		var address = {
 			location: 'Jalan Batik Jogja 27, RT 01 / RW 02',
@@ -134,6 +136,38 @@ knex.transaction(function (trx) {
 			is_active : 0,
 		};
 		return knex('users').insert(user).transacting(trx);
+	})
+	.then(function(){
+		return knex('hospitals').insert({
+			name : 'Rumah Sakit Hasan Sadikin',
+			address_id: 1,
+			lat : '-6.896799',
+			lang : '107.599126'
+		}).transacting(trx);
+	})
+	.then(function(){
+		return knex('services').insert({
+			name : 'Dokter Umum'
+		}).transacting(trx);
+	})
+	.then(function(){
+		return knex('services').insert({
+			name : 'Spesialis Bedah'
+		}).transacting(trx);
+	})
+	.then(function(){
+		return knex('hospital_services').insert({
+			hospital_id : 1,
+			service_id : 1
+		}).transacting(trx);
+	})
+	.then(function(){
+		var admin = {username:'operatorrs', fullname:'Operator RS',  phone:'081566155290', hospital_id : 1};
+		var salt = bcrypt.genSaltSync(5);
+		var hash = bcrypt.hashSync('hagemaru', salt, null);
+		admin.password = hash;
+		admin.role_id = 4;
+		return knex('users').insert(admin).transacting(trx);
 	})
 	.then(trx.commit)
 	.then(function(){
