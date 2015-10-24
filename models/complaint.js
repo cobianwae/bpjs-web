@@ -34,6 +34,9 @@ var Complaint = bookshelf.Model.extend({
 	get : Promise.method(function (id) {
 		return new this({id:id}).fetch({withRelated:'user'});
 	}),
+	getByParams: Promise.method(function(params){
+		return new this(params).fetch();
+	}),
 	save : Promise.method(function (data) {
 		return new this(data).save();
 	}),

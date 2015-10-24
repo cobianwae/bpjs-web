@@ -1,7 +1,7 @@
 'use strict';
 angular.module('bpjs.controllers')
-.controller('ComplaintResponseCtrl',  ['$scope', '$rootScope', 'ComplaintResponse', 'HospitalService','Complaint', 'Hospital','$stateParams' , 'uiGmapGoogleMapApi',
-	function($scope, $rootScope, ComplaintResponse, HospitalService, Complaint, Hospital, $stateParams, uiGmapGoogleMapApi) {
+.controller('ComplaintResponseCtrl',  ['$scope', '$rootScope', 'ComplaintResponse', 'HospitalService','Complaint', 'Hospital','$stateParams' , '$state', 'uiGmapGoogleMapApi',
+	function($scope, $rootScope, ComplaintResponse, HospitalService, Complaint, Hospital, $stateParams, $state, uiGmapGoogleMapApi) {
 
 		
 		$scope.model = {};
@@ -14,16 +14,16 @@ angular.module('bpjs.controllers')
 		};
 
 		$scope.save = function(){				
-			if($scope.$$childHead.complaintResponseForm.$valid){			
+			if($scope.complaintResponseForm.$valid){			
 				ComplaintResponse.save($scope.model, function(){
-					$state.go('complaint');				
 					$scope.complaint = {};
 					$scope.model = {};
-					
+					$state.go('complaint');
 				});
 			}
 		};
 		$scope.complaint = Complaint.get({id:$stateParams.id}, function(){
+			$scope.model.user_id = $scope.complaint.user.id;
 			$scope.userGeoLoc = $scope.complaint.location_reference.split(',');
 			uiGmapGoogleMapApi.then(function(maps) {
 				$scope.map = { center: { latitude: $scope.userGeoLoc[0], longitude: $scope.userGeoLoc[1] }, zoom: 13 };

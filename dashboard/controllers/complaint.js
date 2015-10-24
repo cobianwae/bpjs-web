@@ -31,6 +31,9 @@ complaintController.getList = function(req, res, next) {
 	queryString.orderDirection = 'desc';
 	queryBuilder.setup(queryString);
 	queryBuilder.includes('user');
+	queryBuilder.where({
+		is_completed:0
+	});
 	Complaint.query(queryBuilder)
 	.then(function(result) {
 		res.send(result);

@@ -57,7 +57,7 @@ var Schema = {
 		hospital_id: {type: 'integer', nullable: false, unsigned:true, references:'hospitals.id'},
 		service_id: {type: 'integer', nullable: false, unsigned:true, references:'services.id'},
 		latest_number :{type: 'integer', nullable: false, defaultTo:1},
-		remains : {type: 'integer', nullable: false},
+		progressed_number : {type: 'integer', nullable: false},
 		time_average : {type: 'integer', nullable: false},
 		date : {type: 'date', nullable: false},
 	},
@@ -65,6 +65,7 @@ var Schema = {
 		id : {type: 'increments', nullable: false, primary: true},
 		daily_queue_id: {type: 'integer', nullable: false, unsigned:true, references:'daily_queues.id'},
 		number : {type: 'integer', nullable: false},
+		completed_at : {type:'timestamp', nullable:false,  rawDefaultTo:'CURRENT_TIMESTAMP'}
 	}
 };
 

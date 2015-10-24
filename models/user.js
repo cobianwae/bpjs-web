@@ -14,6 +14,9 @@ var User = bookshelf.Model.extend({
 	validPassword : function(password) {
 		return bcrypt.compareSync(password, this.attributes.password);
 	},
+	address : function(){
+		return this.belongsTo('Address', 'address_id');
+	}
 },{
 	get : Promise.method(function(id) {
 		return new this({id:id}).fetch({withRelated : 'role'});		
@@ -48,7 +51,7 @@ var User = bookshelf.Model.extend({
 		return new this({id:id}).destroy();
 	}),
 	getWithParams: Promise.method(function(params){
-		return new this(params).fetch();
+		return new this(params).fetch({withRelated:'address'});
 	}),
 });
 

@@ -2,24 +2,21 @@ var bookshelf = require('models').bookshelf;
 var Promise = require('core/bluebird');
 var authorization = require('core/authorization');
 
-var DailyQueue = bookshelf.Model.extend({
-	tableName : 'daily_queues',
-	user : function(){
-		return this.belongsTo('User', 'user_id');
-	}
+var Address = bookshelf.Model.extend({
+	tableName : 'addresses'
 },{
 	query : Promise.method(function (queryBuilder) {
 		var result = {};
-		var DailyQueue = this;
+		var Address = this;
 		return this.collection()
 		.query(function(qb){
 			queryBuilder.build(qb);
 		})
-		.fetch(queryBuilder.withRelated())
+		.fetch()
 		.then(function(collection){
 			result.data = collection.toJSON();
 			var raw = 'count(*) as total';
-			return DailyQueue.collection()
+			return Address.collection()
 			.query(function(qb){
 				qb.select(bookshelf.knex.raw(raw));
 				queryBuilder.buildConditionsOnly(qb);
@@ -32,10 +29,7 @@ var DailyQueue = bookshelf.Model.extend({
 		});
 	}),
 	get : Promise.method(function (id) {
-		return new this({id:id}).fetch({withRelated:'user'});
-	}),
-	getByParams: Promise.method(function(params){
-		return new this(params).fetch();
+		return new this({id:id}).fetch();
 	}),
 	save : Promise.method(function (data) {
 		return new this(data).save();
@@ -45,4 +39,4 @@ var DailyQueue = bookshelf.Model.extend({
 	})
 });
 
-module.exports = bookshelf.model('DailyQueue', DailyQueue);
+module.exports = bookshelf.model('Address', Address);

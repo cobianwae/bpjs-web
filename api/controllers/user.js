@@ -30,6 +30,7 @@ userController.post = function(req, res, next) {
 	if(req.body.password !== req.body.confirm_password){
 		return res.send({success:false, message:"password didn't match"});
 	}
+	var address = null;
 	User.getWithParams({bpjs_number : req.body.bpjs_number})
 	.then(function(model){
 		if(model == null){
@@ -42,9 +43,12 @@ userController.post = function(req, res, next) {
 		var salt = bcrypt.genSaltSync(5);
 		var hash = bcrypt.hashSync('hagemaru', salt, null);
 		user.password = hash;
+		address = user.address;
+		delete user.address;
 		return User.save(user);
 	})
 	.then(function(user){
+		user.address = address;
 		res.send({success:true, user:user});
 	});	
 };
