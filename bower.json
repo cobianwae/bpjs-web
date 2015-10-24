@@ -20,6 +20,7 @@
     "ng-ckeditor": "~0.2.1",
     "ngImgCrop": "~0.3.2",
     "morrisjs": "~0.5.1",
-    "ckeditor": "~4.5.3"
+    "ckeditor": "~4.5.3",
+    "angular-google-maps": "~2.2.1"
   }
 }

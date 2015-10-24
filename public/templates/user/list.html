@@ -1,0 +1,65 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+	<h1>
+		Daftar User
+		
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+		<li><a href="#">Master</a></li>
+		<li class="active">Daftar User</li>
+	</ol>
+</section>
+
+<section class="content">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="box">
+				<div class="box-header">
+					<h3 class="box-title">Daftar User</h3>					
+					<a class="btn btn-default pull-right btn-sm" ui-sref="user-create"><i class="fa fa-plus"></i>Tambah User</a>
+				</div><!-- /.box-header -->
+				<div class="box-body">
+					<table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+						<thead>
+							<tr role="row">
+								<th class="sorting_asc">Username</th>								
+								<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Nama Lengkap</th>
+								<th>Role</th>
+								<th>No Telp/HP</th>
+								<!-- <th>Email</th> -->
+								<th width="20px">Edit</th>
+								<th width="20px">Delete</th>
+							</tr>
+						</thead>
+						<tbody>							
+							<tr role="row" class="odd" ng-repeat="item in userQueryResult.data track by $index">
+								<td class="sorting_1">[[item.username]]</td>
+								<td>[[item.fullname]]</td>
+								<td>[[item.role.title]]</td>
+								<td>[[item.phone]]</td>
+								<!-- <td>[[item.email]]</td> -->
+								<td>
+									<a ui-sref="user-update({id: item.id})" class="btn btn-default"><i class="fa fa-edit"></i></a>									
+								</td>
+								<td>
+									<button type="button"  ng-click="remove(item.id)" class="btn btn-default"><i class="fa fa-remove"></i></button>
+								</td>									
+							</tr>
+						</tbody>
+						<tfoot>				
+						<div class="box-footer clearfix">
+							<pagination ng-change="pageChanged()" boundary-links="true" total-items="total" ng-model="currentPage" max-size="maxSize" items-per-page="pageSize" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+						</div>			
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</section><!-- /.content -->
+
+
+
+
+

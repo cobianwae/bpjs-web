@@ -86,19 +86,54 @@ knex.transaction(function (trx) {
 	.then(function(){
 		var roles = [
 		{title : 'admin'},
-		{title : 'operator'}];
+		{title : 'operator'},
+		{title : 'member'},];
 		return knex('roles').insert(roles).transacting(trx)
 	})
 	.then(function(){
 		return knex('roles').where({title: 'admin'}).select('id');
 	})
 	.then(function(roles){
-		var admin = {username:'admin', email:'admin@cobianwae.com'};
+		var admin = {username:'admin', fullname:'Super Admin',  phone:'08156155290'};
 		var salt = bcrypt.genSaltSync(5);
 		var hash = bcrypt.hashSync('hagemaru', salt, null);
 		admin.password = hash;
 		admin.role_id = roles[0].id;
 		return knex('users').insert(admin).transacting(trx);
+	})
+	.then(function(){
+		var address = {
+			location: 'Jalan Batik Jogja 27, RT 01 / RW 02',
+			village : 'Cibeunying Kaler',
+			subdistrict : 'Sukaluyu',
+			regency : 'Bandung',
+			province : 'Jawa Barat'
+		};
+		return knex('addresses').insert(address).transacting(trx);
+	})
+	.then(function(){
+		return knex('roles').where({title: 'member'}).select('id');
+	})
+	.then(function(roles){
+		var role_id = roles[0].id;
+		var salt = bcrypt.genSaltSync(5);
+		var hash = bcrypt.hashSync('hagemaru', salt, null);
+		var user = {
+			username : '1122334455',
+			password : hash,
+			fullname : 'Pablo Escobar',
+			phone: '085222206414',
+			role_id: role_id,
+			bpjs_number : '1122334455',
+			identity_number : '5544332211',
+			birth_date : new Date(1988, 8, 3, 0, 0, 0, 0),
+			status : 'Beristri Dua',
+			blood_type: 'O',
+			sex : 'male',
+			address_id: 1,
+			is_active : 0,
+		};
+		return knex('users').insert(user).transacting(trx);
 	})
 	.then(trx.commit)
 	.then(function(){

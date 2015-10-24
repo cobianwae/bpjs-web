@@ -5,7 +5,7 @@ var Schema = {
 	},
 	users: {
 		id: {type: 'increments', nullable: false, primary: true},
-		username : {type:'string', maxlength:65, nullable:false, unique:true},
+		username : {type:'string', maxlength:65, nullable:true, unique:true},
 		fullname : {type:'string', maxlength:100, nullable:false},
 		email: {type: 'string', maxlength: 70, nullable: true, unique: true},
 		phone: {type: 'string', maxlength: 254, nullable: true, unique: true},
@@ -30,7 +30,7 @@ var Schema = {
 	},
 	complaints : {
 		id : {type: 'increments', nullable: false, primary: true},
-		diseas : {type:'string', nullable:false},
+		disease : {type:'string', nullable:false},
 		date : {type:'date', nullable:false},
 		created_at : {type:'timestamp', nullable:false,  rawDefaultTo:'CURRENT_TIMESTAMP'},
 		user_id: {type: 'integer', nullable: false, unsigned:true, references:'users.id'},

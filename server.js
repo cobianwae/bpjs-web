@@ -12,6 +12,7 @@ var compress = require('compression');
 var config = require('config');
 var env = process.env.NODE_ENV || 'development';
 var handlebarsHelpers = require('core/helpers/handlebars.js');
+var jwt = require('core/authentication/jwt');
 
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({
@@ -40,6 +41,11 @@ authentication.initialize(app);
 app.use(flash());
 app.use('/dashboard', authentication.required);
 app.use('/public/uploads', authentication.required);
+app.use('/api', jwt.authenticateWithExceptions([
+	{path : '/authentication', method:'post'},
+	{path : '/verification', method:'post'},
+	{path : '/user', method:'post'},
+	{path : '/home', method:'get'}]));
 
 //static block;
 app.use('/public',express.static(__dirname + '/public'));
@@ -55,12 +61,17 @@ app.use('/templates', express.static(__dirname + '/public/templates'));
 mvc.init(app, {
 	dir : __dirname,
 	home : {controller : 'home', action: 'index'},
-	modules : {
+	modules : [{
 		name : 'dashboard',
 		prefix : 'dashboard',
 		dir : path.join(__dirname, 'dashboard'),
 		home : {controller: 'dashboard', action: 'index'}
-	},
+	},{
+		name : 'api',
+		prefix : 'api',
+		dir : path.join(__dirname, 'api'),
+		home : {controller: 'home', action: 'index'}
+	}],
 	handlebarsHelpers : handlebarsHelpers
 });
 

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('Bpjs', ['ngImgCrop', 'validation.match','angular-loading-bar', 'ngStorage', 'ngSanitize','ui.bootstrap.pagination', 'ngResource', 'ui.calendar', 'bpjs.config', 'bpjs.services', 'bpjs.directives', 'bpjs.controllers', 'ui.router'])
+angular.module('Bpjs', ['validation.match','angular-loading-bar', 'ngStorage', 'ngSanitize','ui.bootstrap.pagination', 'ngResource', 'bpjs.config', 'bpjs.services', 'bpjs.directives', 'bpjs.controllers', 'ui.router'])
 .config(['$httpProvider', function($httpProvider) {
 	$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 	$httpProvider.interceptors.push([
@@ -43,7 +43,7 @@ angular.module('Bpjs', ['ngImgCrop', 'validation.match','angular-loading-bar', '
   }
 };
 }])
-.run(['UserInfo', '$rootScope', 'PktYear', function(UserInfo, $rootScope,PktYear) {
+.run(['UserInfo', '$rootScope',  function(UserInfo, $rootScope) {
 	UserInfo.then(function(userInfo){
 		$rootScope.userInfo = userInfo;
 	});
@@ -51,5 +51,27 @@ angular.module('Bpjs', ['ngImgCrop', 'validation.match','angular-loading-bar', '
 .config(['$stateProvider', '$urlRouterProvider', '$interpolateProvider', function($stateProvider, $urlRouterProvider, $interpolateProvider, UserInfo ) {
 	$interpolateProvider.startSymbol('[[');
 	$interpolateProvider.endSymbol(']]');
+	$stateProvider
+	.state('user',{
+		url : '/user',
+		templateUrl : '/templates/user/list.html',
+		controller : 'UserListCtrl'
+	})
+	.state('user-create', {
+		url: '/user/create',
+		templateUrl: '/templates/user/create.html',
+		controller: 'UserCreateCtrl'
+	})
+	.state('user-update', {
+		url: '/user/update/:id',
+		templateUrl: '/templates/user/update.html',
+		controller: 'UserUpdateCtrl'
+	})
+	.state('complaint',{
+		url : '/complaint',
+		templateUrl : '/templates/complaint/list.html',
+		controller : 'ComplaintListCtrl'
+	})
+
 	$urlRouterProvider.otherwise('/');
 }]);

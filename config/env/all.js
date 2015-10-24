@@ -5,7 +5,8 @@ publicPath = path.join(rootPath, 'public');
 
 var config = {
 	rootPath : rootPath,
-	publicPath : publicPath
+	publicPath : publicPath,
+	jwtSecreetKey : 'hackaton-merdeka-6414'
 };
 
 exports = module.exports = config;

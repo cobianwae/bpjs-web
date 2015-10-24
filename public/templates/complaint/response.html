@@ -1,0 +1,43 @@
+<form role="form" name="complaintResponseForm">
+	<div class="box-body">					
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label>Nomor BPJS</label>
+					<input type="text" class="form-control" placeholder="No BPJS" ng-model="model.user.bpjs_number" ng-required="true" />
+				</div>					
+				<div class="form-group">
+					<label>Nomor KTP</label>
+					<input type="text" class="form-control" placeholder="No KTP" ng-model="model.user.identity_number" ng-required="true" />
+				</div>
+				<div class="form-group">
+					<label>Fullname</label>
+					<input type="text" class="form-control" placeholder="Fullname" ng-model="model.user.fullname" ng-required="true" />
+				</div>
+			</div>
+			<div class="col-sm-6">				
+				<div class="form-group">
+					<label>Pilihan Waktu</label>
+					<input type="text" class="form-control" placeholder="Isi nomor hp" ng-model="model.date" ng-required="true" />
+				</div>
+				<div class="form-group">
+					<label>Keluhan</label>
+					<textarea class="form-control" placeholder="Isi nomor hp" ng-model="model.disease" ng-required="true" ></textarea>
+				</div>
+			</div>
+			<div class="col-sm-12">
+			</div>
+		</div>
+	</div>
+	<div class="box-footer">
+		<div class="form-group"> 
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<button type="submit" class="btn btn-primary" ng-click="save()">Save changes</button>
+		</div> 
+	</div>	
+</form>
+
+<div ng-controller="ChangePasswordCtrl" class="changePassword" ng-include="'/templates/user/_changePassword.html'">
+</div>
+
+

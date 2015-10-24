@@ -1,0 +1,50 @@
+<form role="form" name="userForm">
+	<div class="box-body">					
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label>Username</label>
+					<input type="text" class="form-control" placeholder="Username yang akan digunakan sebagai login" ng-model="model.username" ng-required="true" />
+				</div>					
+				<div class="form-group">
+					<label>Nama Lengkap</label>
+					<input type="text" class="form-control" placeholder="Isi nama lengkap" ng-model="model.fullname" ng-required="true" />
+				</div>
+				<div class="form-group">
+					<label>Role</label>
+					<select id="role" ng-model="model.role_id" ng-required="true" class="form-control">
+						<option value="">Pilih Role</option>
+						<option data-ng-repeat="item in roles.data" value="[[item.id]]" ng-selected="item.id === model.role_id">[[item.title]]</option>
+					</select>                      
+				</div>		
+
+			</div>
+			<div class="col-sm-6">				
+				
+				<div class="form-group">
+					<label>No Telepon</label>
+					<input type="text" class="form-control" placeholder="Isi nomor hp" ng-model="model.phone" ng-required="true" />
+				</div>
+				<div class="form-group">
+					<label>Email</label>
+					<input type="email" class="form-control" placeholder="Surat Elektronik" ng-model="model.email" />
+				</div>
+				<div class="form-group" ng-if="type == 'update'">
+					<br/>
+					<a href="javascript:;" ng-click="changePassword(model.id)">Ganti Password</a>					
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="box-footer">
+		<div class="form-group"> 
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<button type="submit" class="btn btn-primary" ng-click="save()">Save changes</button>
+		</div> 
+	</div>	
+</form>
+
+<div ng-controller="ChangePasswordCtrl" class="changePassword" ng-include="'/templates/user/_changePassword.html'">
+</div>
+
+

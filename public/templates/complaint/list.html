@@ -1,0 +1,61 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+	<h1>
+		Keluhan
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+		<li><a href="#">Master</a></li>
+		<li class="active">Daftar Keluhan</li>
+	</ol>
+</section>
+
+<section class="content">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="box">
+				<div class="box-header">
+					<h3 class="box-title">Daftar Keluhan</h3>					
+				</div><!-- /.box-header -->
+				<div class="box-body">
+					<table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+						<thead>
+							<tr role="row">
+								<th class="sorting_asc">Nomor BPJS</th>
+								<th class="sorting">Nomor KTP</th>								
+								<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Nama Lengkap</th>
+								<th>Keluhan</th>
+								<th>Pilihan Waktu Pemeriksaan</th>
+								<th>No Telp/HP</th>
+								<th width="40px">Tanggapi</th>
+							</tr>
+						</thead>
+						<tbody>							
+							<tr role="row" class="odd" ng-repeat="item in complaintQueryResult.data track by $index">
+								<td class="sorting_1">[[item.user.bpjs_number]]</td>
+								<td>[[item.user.identity_number]]</td>
+								<td>[[item.user.fullname]]</td>
+								<td>[[item.disease]]</td>
+								<td>[[item.date | date : 'dd-MM-yyyy']]</td>
+								<td>[[item.user.phone]]</td>
+								<td>
+									<a ui-sref="complaint-response({id: item.id})" class="btn btn-default"><i class="fa fa-edit"></i></a>									
+								</td>						
+							</tr>
+						</tbody>
+						<tfoot>				
+						<div class="box-footer clearfix">
+							<pagination ng-change="pageChanged()" boundary-links="true" total-items="total" ng-model="currentPage" max-size="maxSize" items-per-page="pageSize" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+						</div>			
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</section><!-- /.content -->
+
+
+
+
+
