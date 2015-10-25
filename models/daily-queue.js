@@ -3,7 +3,13 @@ var Promise = require('core/bluebird');
 var authorization = require('core/authorization');
 
 var DailyQueue = bookshelf.Model.extend({
-	tableName : 'daily_queues'
+	tableName : 'daily_queues',
+	hospital : function(){
+		return this.belongsTo('Hospital', 'hospital_id');
+	},
+	hospitalService : function(){
+		return this.belongsTo('HospitalService', 'service_id');
+	}
 },{
 	query : Promise.method(function (queryBuilder) {
 		var result = {};

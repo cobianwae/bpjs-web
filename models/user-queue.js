@@ -5,6 +5,9 @@ var UserQueue = bookshelf.Model.extend({
 	tableName : 'user_queues',
 	user : function(){
 		return this.belongsTo('User', 'user_id');
+	},
+	dailyQueue: function() {
+		return this.belongsTo('DailyQueue', 'daily_queue_id');
 	}
 },{
 	query : Promise.method(function (queryBuilder) {
@@ -44,7 +47,7 @@ var UserQueue = bookshelf.Model.extend({
 		return new this({id:id}).destroy();
 	}),
 	getByParams : Promise.method(function (params) {
-		return new this(params).fetch({withRelated:'user'});
+		return new this(params).fetch({withRelated:['user', 'dailyQueue', 'dailyQueue.hospital', 'dailyQueue.hospitalService']});
 	}),
 });
 
