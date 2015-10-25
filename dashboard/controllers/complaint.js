@@ -32,7 +32,7 @@ complaintController.getList = function(req, res, next) {
 	queryBuilder.setup(queryString);
 	queryBuilder.includes('user');
 	queryBuilder.where({
-		is_completed:0
+		in_queue:0
 	});
 	Complaint.query(queryBuilder)
 	.then(function(result) {

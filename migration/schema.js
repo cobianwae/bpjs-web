@@ -36,6 +36,7 @@ var Schema = {
 		created_at : {type:'timestamp', nullable:false,  rawDefaultTo:'CURRENT_TIMESTAMP'},
 		user_id: {type: 'integer', nullable: false, unsigned:true, references:'users.id'},
 		location_reference :  {type:'string', nullable:false},
+		in_queue :  {type:'boolean', nullable:false, defaultTo:false},
 		is_completed : {type:'boolean', nullable:false, defaultTo:false},
 	},
 	hospitals : {
@@ -68,7 +69,8 @@ var Schema = {
 		daily_queue_id: {type: 'integer', nullable: false, unsigned:true, references:'daily_queues.id'},
 		number : {type: 'integer', nullable: false},
 		user_id: {type: 'integer', nullable: false, unsigned:true, references:'users.id'},
-		completed_at : {type:'timestamp', nullable:false,  rawDefaultTo:'CURRENT_TIMESTAMP'}
+		completed_at : {type:'timestamp', nullable:false,  rawDefaultTo:'CURRENT_TIMESTAMP'},
+		is_completed : {type:'boolean', nullable:false, defaultTo:false},
 	}
 };
 

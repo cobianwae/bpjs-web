@@ -50,7 +50,7 @@ complaintResponseController.post = function(req, res, next) {
 		Complaint.getByParams({user_id:userQueue.user_id})
 		.then(function(complaintModel){
 			var complaint = complaintModel.toJSON();
-			complaint.is_completed = 1;
+			complaint.in_queue = 1;
 			return Complaint.save(complaint);
 		})
 		.then(function(){

@@ -40,4 +40,12 @@ angular.module('bpjs.controllers')
 		$scope.userqueueQueryResult = UserQueue.query({page : $scope.currentPage, limit: $scope.pageSize});		
 	};
 
+
+	$scope.process = function(id){
+		UserQueue.save({id : id}, function(){
+			refresh();
+		})
+	}
+
+
 }]);

@@ -3,6 +3,7 @@ var UserQueueService = require('models/user-queue');
 var DailyQueueService = require('models/daily-queue');
 var authorization = require('core/authorization');
 var QueryBuilder = require('core/query-builder');
+var Complaint = require('models/complaint');
 var moment = require('moment');
 
 var userQueueController = new APIController();
@@ -31,7 +32,11 @@ userQueueController.getList = function(req, res, next) {
 		var dailyQueueIds = model.data.map(function(ob){
 			return ob.id;
 		})
-		queryBuilder.where('daily_queue_id','in','('+ dailyQueueIds.join(',')+')' )
+		queryBuilder.includes('user');
+		queryBuilder.where('daily_queue_id','in', dailyQueueIds.join(',') );
+		queryBuilder.andWhere({
+			is_completed : false
+		})
 		return 	UserQueueService.query(queryBuilder);
 	})
 	.then(function(result) {
@@ -39,10 +44,27 @@ userQueueController.getList = function(req, res, next) {
 	});
 };
 userQueueController.post = function(req, res, next) {
-	UserQueueService.save(data)
+	UserQueueService.get(req.params.id)
+	.then(function(model){
+		var userQueue = model.toJSON();
+		userQueue.completedAt = new Date();
+		userQueue.is_completed = true;
+		return 	UserQueueService.save(data);
+	})
+	.then(function(model){
+		var userQueue = model.toJSON();
+		return Complaint.getByParams({
+			user_id : userQueue.user_id,
+			is_completed : false
+		});
+	})
+	.then(function(model){
+		var complaint = model.toJSON();
+		return Complaint.save(complaint);
+	})
 	.then(function(){
 		res.send({success:true})
-	});	
+	});
 };
 userQueueController.put = function(req, res, next) {	
 	UserQueueService.save(data)
