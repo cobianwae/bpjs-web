@@ -1,6 +1,5 @@
 var bookshelf = require('models').bookshelf;
 var Promise = require('core/bluebird');
-var authorization = require('core/authorization');
 
 var UserQueue = bookshelf.Model.extend({
 	tableName : 'user_queues',
@@ -27,7 +26,11 @@ var UserQueue = bookshelf.Model.extend({
 			.fetchOne();
 		})
 		.then(function(model){
+			console.log('oooooooo');
+			console.log(model.toJSON());
 			result.total = model.toJSON().total;
+			console.log('sampe sini gak ***********************************');
+			console.log(result);
 			return Promise.resolve(result);
 		});
 	}),
@@ -39,7 +42,10 @@ var UserQueue = bookshelf.Model.extend({
 	}),
 	delete : Promise.method(function (id) {
 		return new this({id:id}).destroy();
-	})
+	}),
+	getByParams : Promise.method(function (params) {
+		return new this(params).fetch({withRelated:'user'});
+	}),
 });
 
 module.exports = bookshelf.model('UserQueue', UserQueue);

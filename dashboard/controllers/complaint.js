@@ -28,9 +28,9 @@ complaintController.getList = function(req, res, next) {
 	var queryBuilder = new QueryBuilder();
 	queryString.limit = 20;
 	queryString.orderBy = 'created_at';
-	queryString.orderDirection = 'desc';
+	queryString.orderDirection = 'desc'
+	queryBuilder.includes('user');;
 	queryBuilder.setup(queryString);
-	queryBuilder.includes('user');
 	queryBuilder.where({
 		in_queue:0
 	});
